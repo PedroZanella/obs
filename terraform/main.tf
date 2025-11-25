@@ -35,7 +35,7 @@ resource "aws_subnet" "obs_subnet" {
   cidr_block              = var.subnet_cidr
   map_public_ip_on_launch = true
   availability_zone       = var.availability_zone
-  tags = { Name = "obs-subnet" }
+  tags                    = { Name = "obs-subnet" }
 }
 
 resource "aws_route_table" "obs_rt" {
@@ -157,7 +157,7 @@ resource "aws_instance" "obs_predo" {
     docker-compose up -d
   EOF
 
- 
+
 
   tags = {
     Name        = "obs-predo"
