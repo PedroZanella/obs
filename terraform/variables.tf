@@ -25,7 +25,7 @@ variable "availability_zone" {
 variable "instance_type" {
   description = "Tipo da instância EC2"
   type        = string
-  default     = "t2.micro"
+  default     = "t3.micro"
 }
 
 variable "ami_id" {
@@ -34,8 +34,3 @@ variable "ami_id" {
   default     = "ami-0fc5d935ebf8bc3bc"
 }
 
-variable "github_repo_url" {
-  description = "URL do repositório Git público com docker-compose.yml"
-  type        = string
-  default     = "https://github.com/PedroZanella/obs.git"
-}
