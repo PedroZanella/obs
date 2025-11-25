@@ -121,7 +121,7 @@ resource "aws_security_group" "obs_sg" {
 # EC2 Instance
 # ------------------------------
 
-resource "aws_instance" "obs_vm" {
+resource "aws_instance" "obs_predo" {
   ami                         = var.ami_id
   instance_type               = var.instance_type
   subnet_id                   = aws_subnet.obs_subnet.id
@@ -131,22 +131,36 @@ resource "aws_instance" "obs_vm" {
 
   user_data = <<-EOF
     #!/bin/bash
-    apt-get update -y
-    apt-get install -y docker.io docker-compose git
-    systemctl start docker
-    systemctl enable docker
-    usermod -aG docker ubuntu
+    set -e
 
-    cd /opt
-    rm -rf observability/
-    git clone ${var.github_repo_url} observability
-    cd observability
+    echo "🚀 Iniciando setup da VM..."
 
+    # Instalar Docker
+    if ! command -v docker &> /dev/null; then
+      curl -fsSL https://get.docker.com -o get-docker.sh
+      sh get-docker.sh
+      usermod -aG docker ubuntu
+    fi
+
+    # Instalar Docker Compose
+    if ! command -v docker-compose &> /dev/null; then
+      curl -L "https://github.com/docker/compose/releases/download/v2.24.6/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+      chmod +x /usr/local/bin/docker-compose
+    fi
+
+    # Clonar repositório
+    cd /home/ubuntu
+    git clone https://github.com/PedroZanella/obs.git
+    cd obs
+
+    # Subir containers
     docker-compose up -d
   EOF
 
+ 
+
   tags = {
-    Name        = "obs_vm"
+    Name        = "obs-predo"
     Environment = "dev"
     Owner       = "Pedro"
   }
