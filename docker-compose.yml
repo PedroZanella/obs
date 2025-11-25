@@ -62,6 +62,25 @@ services:
       - ./grafana/provisioning:/etc/grafana/provisioning:ro
       - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
 
+
+  postgres:
+    image: postgres:15
+    container_name: obs-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: grafana
+      POSTGRES_PASSWORD: grafana123
+      POSTGRES_DB: grafana_db
+    ports:
+      - "5432:5432"   # opcional, só se quiser acessar de fora
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - default  
+
 volumes:
   prometheus-data:
   grafana-data:
+  postgres-data:
+
+
