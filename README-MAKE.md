@@ -21,10 +21,11 @@ O Makefile executa a sequência completa:
 Você também pode rodar cada etapa separadamente:
 
 Bash
-
+```
 make init       # Inicializa o Terraform  
 make validate   # Valida os arquivos  
 make fmt        # Formata os arquivos .tf  
 make plan       # Gera o plano de execução  
 make apply      # Aplica a infraestrutura  
 make destroy    # Remove a infraestrutura criada
+```
