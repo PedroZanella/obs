@@ -15,3 +15,7 @@ scrape_configs:
     static_configs:
       - targets:
           - "ping-exporter:9427"
+ 
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['postgres-exporter:9187']
