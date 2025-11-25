@@ -6,7 +6,9 @@ Com ele, você não precisa lembrar todos os comandos longos do Terraform — ba
 O alvo padrão é aws-deploy. Isso significa que, ao rodar:
 make
 
-![alt text]({F0BB5C49-1A88-4309-AA3B-681B53422002}.png)
+
+Bash:
+    make
 
 O Makefile executa a sequência completa:
 - terraform init → inicializa o projeto
@@ -18,4 +20,11 @@ O Makefile executa a sequência completa:
 📦 Outros comandos disponíveis
 Você também pode rodar cada etapa separadamente:
 
-![alt text]({723D5EFE-1B72-4166-B3DB-6A1144DD0849}.png)
+Bash
+
+make init       # Inicializa o Terraform  
+make validate   # Valida os arquivos  
+make fmt        # Formata os arquivos .tf  
+make plan       # Gera o plano de execução  
+make apply      # Aplica a infraestrutura  
+make destroy    # Remove a infraestrutura criada
