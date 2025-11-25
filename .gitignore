@@ -1,0 +1,29 @@
+# Terraform
+*.tfstate
+*.tfstate.backup
+.terraform/
+crash.log
+override.tf
+override.tf.json
+terraform.tfvars
+*.tfvars.json
+
+# Docker
+*.log
+docker-compose.override.yml
+
+# SSH keys (nunca versionar!)
+*.pem
+*.key
+id_rsa
+id_rsa.pub
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+*.swo
