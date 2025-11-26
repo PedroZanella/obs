@@ -96,9 +96,9 @@ services:
     environment:
       DB_HOST: postgres
       DB_PORT: 5432
-      DB_NAME: postgres
-      DB_USER: postgres
-      DB_PASSWORD: postgres
+      DB_NAME: grafana_db
+      DB_USER: grafana
+      DB_PASSWORD: grafana123
       BATCH_SIZE: 50
       SLEEP_MIN_SEC: 0.2
       SLEEP_MAX_SEC: 1.5
