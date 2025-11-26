@@ -86,6 +86,11 @@ services:
       DATA_SOURCE_NAME: "postgresql://grafana:grafana123@postgres:5432/grafana_db?sslmode=disable"
     ports:
       - "9187:9187"
+    volumes:
+    - ./queries.yaml:/etc/postgres_exporter/queries.yaml
+    command:
+    - "--extend.query-path=/etc/postgres_exporter/queries.yaml"
+  
     depends_on:
     - postgres
 
