@@ -3,10 +3,7 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": {
-          "type": "grafana",
-          "uid": "grafana"
-        },
+        "datasource": { "type": "grafana", "uid": "grafana" },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -21,209 +18,199 @@
   "links": [],
   "panels": [
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus-ds"
-      },
+      "datasource": { "type": "prometheus", "uid": "prometheus-ds" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "palette-classic" },
-          "mappings": [],
-          "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null }, { "color": "red", "value": 0.9 } ] },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "red", "value": 0.9 }
+            ]
+          },
           "unit": "percentunit"
-        },
-        "overrides": []
+        }
       },
       "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
       "id": 1,
-      "options": {
-        "legend": { "calcs": ["last"], "displayMode": "list", "placement": "bottom" },
-        "tooltip": { "mode": "multi", "sort": "none" }
-      },
       "targets": [
-        {
-          "expr": "(1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])))",
-          "legendFormat": "CPU uso",
-          "refId": "A"
-        }
+        { "expr": "(1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])))", "legendFormat": "CPU uso", "refId": "A" }
       ],
       "title": "Uso de CPU (5m)",
       "type": "timeseries"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus-ds"
-      },
+      "datasource": { "type": "prometheus", "uid": "prometheus-ds" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "palette-classic" },
-          "mappings": [],
-          "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null }, { "color": "orange", "value": 0.8 }, { "color": "red", "value": 0.9 } ] },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "orange", "value": 0.8 },
+              { "color": "red", "value": 0.9 }
+            ]
+          },
           "unit": "percentunit"
-        },
-        "overrides": []
+        }
       },
       "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
       "id": 2,
-      "options": {
-        "legend": { "displayMode": "table", "placement": "bottom" },
-        "tooltip": { "mode": "single" }
-      },
       "targets": [
-        {
-          "expr": "1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)",
-          "legendFormat": "Memória em uso",
-          "refId": "A"
-        }
+        { "expr": "1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)", "legendFormat": "Memória em uso", "refId": "A" }
       ],
       "title": "Uso de memória",
       "type": "timeseries"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus-ds"
-      },
+      "datasource": { "type": "prometheus", "uid": "prometheus-ds" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "palette-classic" },
-          "mappings": [],
-          "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null }, { "color": "orange", "value": 0.8 }, { "color": "red", "value": 0.9 } ] },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "orange", "value": 0.8 },
+              { "color": "red", "value": 0.9 }
+            ]
+          },
           "unit": "percentunit"
-        },
-        "overrides": []
+        }
       },
       "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
       "id": 3,
-      "options": {
-        "legend": { "displayMode": "list", "placement": "bottom" },
-        "tooltip": { "mode": "single" }
-      },
       "targets": [
-        {
-          "expr": "1 - (node_filesystem_avail_bytes{mountpoint=\"/\",fstype!~\"tmpfs|aufs|overlay\"} / node_filesystem_size_bytes{mountpoint=\"/\",fstype!~\"tmpfs|aufs|overlay\"})",
-          "legendFormat": "Disco /",
-          "refId": "A"
-        }
+        { "expr": "1 - (node_filesystem_avail_bytes{mountpoint=\"/\",fstype!~\"tmpfs|aufs|overlay\"} / node_filesystem_size_bytes{mountpoint=\"/\",fstype!~\"tmpfs|aufs|overlay\"})", "legendFormat": "Disco /", "refId": "A" }
       ],
       "title": "Uso de disco (/)",
       "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus-ds"
-      },
+    }
+      {
+      "datasource": { "type": "prometheus", "uid": "prometheus-ds" },
       "fieldConfig": {
         "defaults": {
           "unit": "short",
-          "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null }, { "color": "orange", "value": 200 }, { "color": "red", "value": 500 } ] }
-        },
-        "overrides": []
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "orange", "value": 200 },
+              { "color": "red", "value": 500 }
+            ]
+          }
+        }
       },
       "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
       "id": 4,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
-        "textMode": "value_and_name"
-      },
       "targets": [
-        {
-          "expr": "node_processes",
-          "legendFormat": "Processos totais",
-          "refId": "A"
-        },
-        {
-          "expr": "node_procs_running",
-          "legendFormat": "Processos rodando",
-          "refId": "B"
-        }
+        { "expr": "node_processes", "legendFormat": "Processos totais", "refId": "A" },
+        { "expr": "node_procs_running", "legendFormat": "Processos rodando", "refId": "B" }
       ],
       "title": "Processos",
-      "transformations": [
-        {
-          "id": "seriesToColumns",
-          "options": {
-            "byField": "Time"
-          }
-        }
-      ],
       "type": "stat"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus-ds"
-      },
+      "datasource": { "type": "prometheus", "uid": "prometheus-ds" },
       "fieldConfig": {
-        "defaults": {
-          "color": { "mode": "palette-classic" },
-          "mappings": [],
-          "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null } ] },
-          "unit": "bps"
-        },
-        "overrides": []
+        "defaults": { "color": { "mode": "palette-classic" }, "unit": "bps" }
       },
       "gridPos": { "h": 8, "w": 12, "x": 0, "y": 16 },
       "id": 5,
-      "options": {
-        "legend": { "displayMode": "table", "placement": "bottom" },
-        "tooltip": { "mode": "multi", "sort": "none" }
-      },
       "targets": [
-        {
-          "expr": "rate(node_network_receive_bytes_total{device!=\"lo\"}[5m]) * 8",
-          "legendFormat": "{{device}} RX",
-          "refId": "A"
-        },
-        {
-          "expr": "rate(node_network_transmit_bytes_total{device!=\"lo\"}[5m]) * 8",
-          "legendFormat": "{{device}} TX",
-          "refId": "B"
-        }
+        { "expr": "rate(node_network_receive_bytes_total{device!=\"lo\"}[5m]) * 8", "legendFormat": "{{device}} RX", "refId": "A" },
+        { "expr": "rate(node_network_transmit_bytes_total{device!=\"lo\"}[5m]) * 8", "legendFormat": "{{device}} TX", "refId": "B" }
       ],
       "title": "Tráfego de rede",
       "type": "timeseries"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus-ds"
-      },
+      "datasource": { "type": "prometheus", "uid": "prometheus-ds" },
       "fieldConfig": {
-        "defaults": {
-          "color": { "mode": "palette-classic" },
-          "mappings": [],
-          "thresholds": { "mode": "absolute", "steps": [ { "color": "green", "value": null }, { "color": "red", "value": 0.2 } ] },
-          "unit": "s"
-        },
-        "overrides": []
+        "defaults": { "color": { "mode": "palette-classic" }, "unit": "s" }
       },
       "gridPos": { "h": 8, "w": 12, "x": 12, "y": 16 },
       "id": 6,
-      "options": {
-        "legend": { "displayMode": "list", "placement": "bottom" },
-        "tooltip": { "mode": "single" }
-      },
       "targets": [
-        {
-          "expr": "ping_rtt_mean_seconds{alias=\"router\"}",
-          "legendFormat": "Roteador",
-          "refId": "A"
-        },
-        {
-          "expr": "ping_rtt_mean_seconds{alias=\"google\"}",
-          "legendFormat": "Google",
-          "refId": "B"
-        }
+        { "expr": "ping_rtt_mean_seconds{alias=\"router\"}", "legendFormat": "Roteador", "refId": "A" },
+        { "expr": "ping_rtt_mean_seconds{alias=\"google\"}", "legendFormat": "Google", "refId": "B" }
       ],
       "title": "Latência de rede (ping)",
       "type": "timeseries"
+    }  
+        {
+      "datasource": { "type": "prometheus", "uid": "prometheus-ds" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "color": { "mode": "thresholds" },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "value": null, "color": "green" },
+              { "value": 50, "color": "orange" },
+              { "value": 100, "color": "red" }
+            ]
+          }
+        }
+      },
+      "gridPos": { "h": 6, "w": 12, "x": 0, "y": 24 },
+      "id": 7,
+      "targets": [
+        { "expr": "pg_stat_activity_count{state=\"active\"}", "refId": "A" }
+      ],
+      "title": "Banco - Conexões Ativas",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus-ds" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ops",
+          "color": { "mode": "thresholds" },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "value": null, "color": "green" },
+              { "value": 100, "color": "orange" },
+              { "value": 500, "color": "red" }
+            ]
+          }
+        }
+      },
+      "gridPos": { "h": 6, "w": 12, "x": 12, "y": 24 },
+      "id": 8,
+      "targets": [
+        { "expr": "rate(pg_stat_database_xact_commit[1m]) + rate(pg_stat_database_xact_rollback[1m])", "refId": "B" }
+      ],
+      "title": "Banco - Transações por Segundo",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus-ds" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "color": { "mode": "thresholds" },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "value": null, "color": "green" },
+              { "value": 10000000, "color": "orange" },
+              { "value": 50000000, "color": "red" }
+            ]
+          }
+        }
+      },
+      "gridPos": { "h": 6, "w": 24, "x": 0, "y": 30 },
+      "id": 9,
+      "targets": [
+        { "expr": "pg_table_size_bytes{relname=\"loadgen_events\"}", "refId": "C" }
+      ],
+      "title": "Banco - Tamanho da Tabela (loadgen_events)",
+      "type": "stat"
     }
   ],
   "refresh": "30s",
@@ -234,7 +221,7 @@
   "time": { "from": "now-1h", "to": "now" },
   "timepicker": { "refresh_intervals": ["10s", "30s", "1m", "5m"] },
   "timezone": "",
-  "title": "Node Exporter – Visão rápida",
-  "uid": "node-observability",
-  "version": 2
+  "title": "Monitoramento Completo – Sistema + Banco",
+  "uid": "node-postgres-observability",
+  "version": 3
 }
