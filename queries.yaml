@@ -1,0 +1,9 @@
+pg_table_size:
+  query: "SELECT relname AS table, pg_total_relation_size(relid) AS size FROM pg_catalog.pg_statio_user_tables;"
+  metrics:
+    - table:
+        usage: "LABEL"
+        description: "Nome da tabela"
+    - size:
+        usage: "GAUGE"
+        description: "Tamanho total da tabela em bytes"

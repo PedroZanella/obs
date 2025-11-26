@@ -11,11 +11,11 @@ Componentes da Stack
 
 - PostgreSQL: banco de dados principal(Banco leve de facil utilização e é compativel com Prometheus).
 - Postgres Exporter: Coleta métricas do banco e expõe em formato Prometheus
-  -Node exporter: O Node Exporter coleta e expõe métricas do sistema operacional para o Prometheus, como CPU, memória, disco, rede e processos. 
+  - Node exporter: O Node Exporter coleta e expõe métricas do sistema operacional para o Prometheus, como CPU, memória, disco, rede e processos. 
 
-  -Ping exporter: O Ping Exporter serve para monitorar a conectividade e a latência de rede entre sua máquina e destinos específicos, usando ICMP (ping).
+  - Ping exporter: O Ping Exporter serve para monitorar a conectividade e a latência de rede entre sua máquina e destinos específicos, usando ICMP (ping).
 
-  -Postgres exporter: O Postgres Exporter é o componente que faz a ponte entre o PostgreSQL e o Prometheus, permitindo que você monitore o banco de dados de forma detalhada.
+  - Postgres exporter: O Postgres Exporter é o componente que faz a ponte entre o PostgreSQL e o Prometheus, permitindo que você monitore o banco de dados de forma detalhada.
 
 - Prometheus: Ele é o sistema de monitoramento e armazenamento de métricas.
 
