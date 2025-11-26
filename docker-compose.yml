@@ -89,6 +89,29 @@ services:
     depends_on:
     - postgres
 
+  loadgen:
+    build:
+      context: ./loadgen
+    container_name: obs-loadgen
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: postgres
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      BATCH_SIZE: 50
+      SLEEP_MIN_SEC: 0.2
+      SLEEP_MAX_SEC: 1.5
+      READ_RATIO: 0.4
+      WRITE_RATIO: 0.3
+      UPDATE_RATIO: 0.2
+      DELETE_RATIO: 0.1
+      TABLE_NAME: loadgen_events
+    depends_on:
+      - postgres
+    restart: unless-stopped
+
+
 volumes:
   prometheus-data:
   grafana-data:
