@@ -87,7 +87,7 @@
       ],
       "title": "Uso de disco (/)",
       "type": "timeseries"
-    }
+    },
       {
       "datasource": { "type": "prometheus", "uid": "prometheus-ds" },
       "fieldConfig": {
@@ -139,7 +139,7 @@
       ],
       "title": "Latência de rede (ping)",
       "type": "timeseries"
-    }  
+    },  
         {
       "datasource": { "type": "prometheus", "uid": "prometheus-ds" },
       "fieldConfig": {
