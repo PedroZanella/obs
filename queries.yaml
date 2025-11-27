@@ -12,7 +12,7 @@ pg_stat_statements:
   query: >
     SELECT
       queryid,
-      ROUND(total_exec_time / GREATEST(calls, 1), 2) AS mean_time,
+      ROUND(total_exec_time::numeric, 2) AS mean_time,
       calls,
       rows
     FROM pg_stat_statements
