@@ -986,7 +986,13 @@
       "pluginVersion": "10.4.2",
       "targets": [
         {
-          "expr": "pg_table_size_bytes{relname=\"loadgen_events\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus-ds"
+          },
+          "editorMode": "code",
+          "expr": "pg_table_size_size{table=\"loadgen_events\"}",
+          "range": true,
           "refId": "C"
         }
       ],
@@ -1106,6 +1112,6 @@
   "timezone": "",
   "title": "Monitoramento Completo – Sistema + Banco",
   "uid": "node-postgres-observability",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }
