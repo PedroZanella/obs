@@ -696,8 +696,14 @@
       },
       "targets": [
         {
-          "expr": "pg_stat_statements_total_time / pg_stat_statements_calls",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus-ds"
+          },
+          "editorMode": "code",
+          "expr": "pg_stat_statements_mean_time",
           "legendFormat": "Tempo médio (ms)",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1046,8 +1052,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
