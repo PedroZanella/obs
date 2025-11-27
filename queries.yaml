@@ -7,3 +7,25 @@ pg_table_size:
     - size:
         usage: "GAUGE"
         description: "Tamanho total da tabela em bytes"
+
+pg_stat_statements:
+  query: >
+    SELECT
+      queryid,
+      ROUND(total_time / GREATEST(calls, 1), 2) AS mean_time,
+      calls,
+      rows
+    FROM pg_stat_statements
+  metrics:
+    - queryid:
+        usage: "LABEL"
+        description: "ID da query"
+    - mean_time:
+        usage: "GAUGE"
+        description: "Tempo médio da query em ms"
+    - calls:
+        usage: "COUNTER"
+        description: "Número de execuções"
+    - rows:
+        usage: "COUNTER"
+        description: "Linhas retornadas"
