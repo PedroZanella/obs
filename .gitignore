@@ -29,3 +29,4 @@ Thumbs.db
 *.swo
 # Ignorar arquivo de autenticação
 obs/nginx/.htpasswd
+nginx/.htpasswd
