@@ -150,11 +150,6 @@ resource "aws_instance" "obs_predo" {
 
     echo "🚀 Iniciando setup da VM..."
 
-    # Adiciona usuário ao grupo docker
-    sudo usermod -aG docker ubuntu
-    newgrp docker
-
-
     # Instalar Docker
     if ! command -v docker &> /dev/null; then
       curl -fsSL https://get.docker.com -o get-docker.sh
@@ -162,6 +157,9 @@ resource "aws_instance" "obs_predo" {
       usermod -aG docker ubuntu
     fi
 
+    # Adiciona usuário ao grupo docker
+    sudo usermod -aG docker ubuntu
+    
     # Instalar Docker Compose
     if ! command -v docker-compose &> /dev/null; then
       curl -L "https://github.com/docker/compose/releases/download/v2.24.6/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
