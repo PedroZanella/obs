@@ -7,11 +7,9 @@ TFVARS=terraform.tfvars
 # Comando base do Terraform
 TF=terraform -chdir=$(TERRAFORM_DIR)
 
-# Configuração de autenticação e certificados
-HTPASSWD_FILE=htpasswd
-USER=pedro
-PASS=pedro123
-CERT_DIR=certs
+# Importa variáveis do .env (não versionado)
+include .env
+export
 
 # Alvo padrão: quando rodar só "make"
 default: full-deploy
@@ -46,10 +44,11 @@ destroy:
 	@echo " Destruindo infraestrutura..."
 	$(TF) destroy -var-file=$(TFVARS) -auto-approve
 
-# Gera o htpasswd automaticamente
+# Gera o htpasswd usando variáveis do .env
 htpasswd:
-	@echo "Gerando arquivo htpasswd..."
-	docker run --rm httpd:2.4 htpasswd -Bbn $(USER) $(PASS) > $(HTPASSWD_FILE)
+	@echo "🔐 Gerando arquivo htpasswd..."
+	docker run --rm httpd:2.4 htpasswd -Bbn $(USER) $(PASS) > nginx/.htpasswd
+	@chmod 640 nginx/.htpasswd
 
 # Gera certificados self-signed (para testes)
 certs:
@@ -58,6 +57,8 @@ certs:
 	openssl req -x509 -nodes -newkey rsa:2048 -days 365 \
 	-keyout $(CERT_DIR)/server.key -out $(CERT_DIR)/server.crt \
 	-subj "/CN=localhost"
+	@chmod 600 $(CERT_DIR)/server.key
+	@chmod 644 $(CERT_DIR)/server.crt
 
 # Sobe toda a stack Docker
 docker-up:
@@ -72,7 +73,7 @@ docker-down:
 # Limpa arquivos gerados
 clean:
 	@echo "Limpando arquivos gerados..."
-	rm -f $(HTPASSWD_FILE)
+	rm -f nginx/.htpasswd
 	rm -rf $(CERT_DIR)
 
 # Deploy completo: Terraform + segurança + Docker
