@@ -30,3 +30,10 @@ Thumbs.db
 # Ignorar arquivo de autenticação
 obs/nginx/.htpasswd
 nginx/.htpasswd
+
+# Arquivos sensíveis
+certs/
+nginx/.htpasswd
+.env
+grafana-data/
+postgres-data/
