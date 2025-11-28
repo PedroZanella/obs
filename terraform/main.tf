@@ -150,6 +150,11 @@ resource "aws_instance" "obs_predo" {
 
     echo "🚀 Iniciando setup da VM..."
 
+    # Adiciona usuário ao grupo docker
+    sudo usermod -aG docker ubuntu
+    newgrp docker
+
+
     # Instalar Docker
     if ! command -v docker &> /dev/null; then
       curl -fsSL https://get.docker.com -o get-docker.sh
