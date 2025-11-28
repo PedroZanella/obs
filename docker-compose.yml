@@ -6,13 +6,13 @@ services:
       context: ./exporter
     container_name: obs-node-exporter
     restart: unless-stopped
+    ports:
+      - "9100:9100"
     volumes:
       - /:/host:ro,rslave
       - ./exporter/textfile:/etc/node-exporter/textfile
     environment:
       - NODE_EXPORTER_FLAGS=
-    networks:
-      - obs-interna
 
   ping-exporter:
     image: czerwonk/ping_exporter:latest
@@ -22,12 +22,12 @@ services:
       - NET_RAW
     environment:
       - CONFIG_FILE=/config/ping_exporter.yml
+    ports:
+      - "9427:9427"
     volumes:
       - ./ping-exporter/ping_exporter.yml:/config/ping_exporter.yml:ro
     depends_on:
       - exporter
-    networks:
-      - obs-interna
 
   prometheus:
     build:
@@ -38,32 +38,30 @@ services:
     depends_on:
       - exporter
       - ping-exporter
+    ports:
+      - "9090:9090"
     volumes:
       - prometheus-data:/prometheus
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
-    networks:
-      - obs-interna
-
   grafana:
     build:
       context: ./grafana
     image: obs-grafana
     container_name: obs-grafana
     restart: unless-stopped
+    ports:
+      - "3300:3000"
     environment:
       - GF_SECURITY_ADMIN_USER=pedro
       - GF_SECURITY_ADMIN_PASSWORD=pedro1030
       - GF_USERS_ALLOW_SIGN_UP=false
-      - GF_SERVER_ROOT_URL=/grafana/
-
     depends_on:
       - prometheus
     volumes:
       - grafana-data:/var/lib/grafana
       - ./grafana/provisioning:/etc/grafana/provisioning:ro
       - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
-    networks:
-      - obs-interna
+
 
   postgres:
     image: postgres:15
@@ -73,12 +71,14 @@ services:
       POSTGRES_USER: grafana
       POSTGRES_PASSWORD: grafana123
       POSTGRES_DB: grafana_db
+    ports:
+      - "5432:5432" 
     volumes:
       - postgres-data:/var/lib/postgresql/data
       - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
     command: ["postgres", "-c", "shared_preload_libraries=pg_stat_statements"]
     networks:
-      - obs-interna
+      - default  
 
   postgres-exporter:
     image: prometheuscommunity/postgres-exporter
@@ -86,14 +86,15 @@ services:
     restart: unless-stopped
     environment:
       DATA_SOURCE_NAME: "postgresql://grafana:grafana123@postgres:5432/grafana_db?sslmode=disable"
+    ports:
+      - "9187:9187"
     volumes:
-      - ./queries.yaml:/etc/postgres_exporter/queries.yaml
+    - ./queries.yaml:/etc/postgres_exporter/queries.yaml
     command:
-      - "--extend.query-path=/etc/postgres_exporter/queries.yaml"
+    - "--extend.query-path=/etc/postgres_exporter/queries.yaml"
+  
     depends_on:
-      - postgres
-    networks:
-      - obs-interna
+    - postgres
 
   loadgen:
     build:
@@ -116,31 +117,15 @@ services:
     depends_on:
       - postgres
     restart: unless-stopped
-    networks:
-      - obs-interna
 
-  nginx:
-    image: nginx:latest
-    container_name: obs-nginx
-    restart: unless-stopped
-    ports:
-      - "443:443"
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-      - ./nginx/.htpasswd:/etc/nginx/.htpasswd:ro
-      - ./certs:/etc/nginx/certs:ro
-    depends_on:
-      - grafana
-      - prometheus
-    networks:
-      - obs-interna
-      - obs-externa
 
 volumes:
   prometheus-data:
   grafana-data:
   postgres-data:
 
-networks:
-  obs-interna:
-  obs-externa:
+
+
+
+
+
