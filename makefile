@@ -56,6 +56,8 @@ htpasswd:
 certs:
 	@echo "Gerando certificados SSL..."
 	mkdir -p $(CERT_DIR)
+	sudo chown -R $(USER):$(USER) $(CERT_DIR)
+	sudo chmod -R 755 $(CERT_DIR)
 	openssl req -x509 -nodes -newkey rsa:2048 -days 365 \
 	-keyout $(CERT_DIR)/server.key -out $(CERT_DIR)/server.crt \
 	-subj "/CN=localhost"
