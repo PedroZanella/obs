@@ -44,10 +44,12 @@ destroy:
 	@echo " Destruindo infraestrutura..."
 	$(TF) destroy -var-file=$(TFVARS) -auto-approve
 
+DOCKER=sudo docker
+
 # Gera o htpasswd usando variáveis do .env
 htpasswd:
 	@echo "🔐 Gerando arquivo htpasswd..."
-	docker run --rm httpd:2.4 htpasswd -Bbn $(USER) $(PASS) > nginx/.htpasswd
+	$(DOCKER) run --rm httpd:2.4 htpasswd -Bbn $(USER) $(PASS) > $(HTPASSWD_FILE)
 	@chmod 640 nginx/.htpasswd
 
 # Gera certificados self-signed (para testes)
